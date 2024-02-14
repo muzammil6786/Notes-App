@@ -9,22 +9,19 @@ userRouter.post("/register", (req, res) => {
   const { username, email, pass } = req.body;
   try {
     bcrypt.hash(pass, 8, async (err, hash) => {
-      try {
         if (hash) {
-          const user = new UserModel({ username, email, pass: hash,});
+          const user = new UserModel({ username, email, pass:hash,});
           await user.save();
-          res.send({ msg: "New new user has been register ", user });
+          res.send({ msg: "New new user has been register "});
         } else {
           res.send({ msg: err });
         }
-      } catch (err) {
-        res.send({ msg: err });
-      }
-    });
-  } catch (err) {
-    res.send({ msg: err });
-  }
-});
+      })
+    }
+    catch (err) {
+      res.send({ msg: err });
+    }
+  })
 
 userRouter.post("/login", async (req, res) => {
   const { email, pass } = req.body;
