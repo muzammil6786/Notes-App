@@ -6,12 +6,12 @@ const jwt = require("jsonwebtoken");
 const userRouter = express.Router();
 
 userRouter.post("/register", (req, res) => {
-  const { username, email, role, pass } = req.body;
+  const { username, email, pass } = req.body;
   try {
     bcrypt.hash(pass, 8, async (err, hash) => {
       try {
         if (hash) {
-          const user = new UserModel({ username, email, pass: hash, role });
+          const user = new UserModel({ username, email, pass: hash,});
           await user.save();
           res.send({ msg: "New new user has been register ", user });
         } else {
